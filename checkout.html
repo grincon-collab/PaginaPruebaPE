@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout - Gabrica Conecta</title>
+    <title>Escenario 1 - Carrito de Compras</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="scenarios.css">
     
@@ -12,13 +12,48 @@
     
 </head>
 <body>
-    <!-- Modal de Ayuda Predictiva -->
+    <!-- Modal del Carrito de Compras -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeCart()">&times;</span>
+            <h2>🛒 Carrito de Compras</h2>
+            
+            <div class="cart-items">
+                <div class="cart-item">
+                    <img src="https://via.placeholder.com/60x60/667eea/ffffff?text=🐕" alt="Producto">
+                    <div class="cart-item-info">
+                        <span class="item-name">Alimento Premium Perro 15kg</span>
+                        <span class="item-price">$89.990</span>
+                    </div>
+                    <span class="item-qty">x1</span>
+                </div>
+                <div class="cart-item">
+                    <img src="https://via.placeholder.com/60x60/764ba2/ffffff?text=🐱" alt="Producto">
+                    <div class="cart-item-info">
+                        <span class="item-name">Alimento Gato Adulto 10kg</span>
+                        <span class="item-price">$65.990</span>
+                    </div>
+                    <span class="item-qty">x2</span>
+                </div>
+            </div>
+            
+            <div class="cart-total">
+                <strong>Total: $221.970</strong>
+            </div>
+            
+            <button class="btn btn-primary" onclick="proceedToCheckout()">
+                Proceder al Pago
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal de Ayuda (aparece después de 30s) -->
     <div id="helpModal" class="modal help-modal">
         <div class="modal-content help-content">
             <span class="close-btn" onclick="closeHelpModal()">&times;</span>
-            <div class="help-icon">🛒</div>
-            <h2>¿Te podemos ayudar a completar tu orden?</h2>
-            <p>Notamos que estás teniendo dificultades. Un asesor puede ayudarte a finalizar tu compra.</p>
+            <div class="help-icon">💬</div>
+            <h2>¿Necesitas ayuda?</h2>
+            <p>Notamos que llevas un tiempo revisando tu carrito. ¿Te podemos ayudar con algo?</p>
             <div class="help-buttons">
                 <button class="btn btn-help-primary" onclick="connectToAgent()">
                     💬 Hablar con un asesor
@@ -30,17 +65,6 @@
         </div>
     </div>
 
-    <!-- Modal de Pago Fallido -->
-    <div id="paymentFailedModal" class="modal">
-        <div class="modal-content error-content">
-            <span class="close-btn" onclick="closePaymentFailedModal()">&times;</span>
-            <div class="help-icon">❌</div>
-            <h2>Error en el pago</h2>
-            <p>No pudimos procesar tu pago. Por favor, intenta con otro método.</p>
-            <button class="btn btn-primary" onclick="closePaymentFailedModal()">Intentar de nuevo</button>
-        </div>
-    </div>
-
     <!-- Contenido Principal -->
     <div class="container">
         <header class="scenario-header">
@@ -48,8 +72,8 @@
                 <span class="brand-logo">🐾</span>
                 <span class="brand-name">Gabrica Conecta</span>
             </div>
-            <h1>Checkout</h1>
-            <p class="subtitle">Escenario 1: Intento de compra con fricción</p>
+            <h1>Escenario 1: Carrito de Compras</h1>
+            <p class="subtitle">Detección de fricción en el carrito</p>
         </header>
 
         <main>
@@ -65,198 +89,74 @@
                 </div>
             </section>
 
-            <!-- Progress Bar -->
-            <div class="checkout-progress">
-                <div class="progress-step completed">
-                    <span class="step-number">1</span>
-                    <span class="step-label">Carrito</span>
+            <!-- Botón del Carrito -->
+            <section class="cart-section">
+                <h2>Haz clic en el carrito para ver tus productos</h2>
+                <div class="cart-icon-container" onclick="openCart()">
+                    <span class="cart-icon">🛒</span>
+                    <span class="cart-badge">2</span>
                 </div>
-                <div class="progress-line completed"></div>
-                <div class="progress-step completed">
-                    <span class="step-number">2</span>
-                    <span class="step-label">Datos</span>
-                </div>
-                <div class="progress-line"></div>
-                <div class="progress-step active">
-                    <span class="step-number">3</span>
-                    <span class="step-label">Pago</span>
-                </div>
-                <div class="progress-line"></div>
-                <div class="progress-step">
-                    <span class="step-number">4</span>
-                    <span class="step-label">Confirmar</span>
-                </div>
-            </div>
+                <p class="cart-hint">Al abrir el carrito se generará el evento <code>cart_opened</code></p>
+            </section>
 
-            <!-- Resumen del Pedido -->
-            <div class="checkout-layout">
-                <div class="checkout-main">
-                    <section class="checkout-section" id="paymentSection">
-                        <h2>💳 Método de Pago</h2>
-                        
-                        <div class="payment-methods">
-                            <div class="payment-option" onclick="selectPayment('credit')">
-                                <input type="radio" name="payment" id="credit" checked>
-                                <label for="credit">
-                                    <span class="payment-icon">💳</span>
-                                    <span>Tarjeta de Crédito</span>
-                                </label>
-                            </div>
-                            <div class="payment-option" onclick="selectPayment('debit')">
-                                <input type="radio" name="payment" id="debit">
-                                <label for="debit">
-                                    <span class="payment-icon">🏦</span>
-                                    <span>Tarjeta Débito</span>
-                                </label>
-                            </div>
-                            <div class="payment-option" onclick="selectPayment('pse')">
-                                <input type="radio" name="payment" id="pse">
-                                <label for="pse">
-                                    <span class="payment-icon">🔄</span>
-                                    <span>PSE</span>
-                                </label>
-                            </div>
-                            <div class="payment-option" onclick="selectPayment('cash')">
-                                <input type="radio" name="payment" id="cash">
-                                <label for="cash">
-                                    <span class="payment-icon">💵</span>
-                                    <span>Efectivo (Efecty/Baloto)</span>
-                                </label>
-                            </div>
+            <!-- Indicadores de Eventos -->
+            <section class="tracking-section">
+                <h2>📊 Indicadores de Eventos</h2>
+                
+                <div class="indicators-grid">
+                    <div class="indicator" id="cartOpenedIndicator">
+                        <div class="indicator-header">
+                            <span class="indicator-icon">🛒</span>
+                            <span class="indicator-name">cart_opened</span>
                         </div>
-
-                        <div class="card-form" id="cardForm">
-                            <h3>Datos de la Tarjeta</h3>
-                            <div class="form-group">
-                                <label>Número de Tarjeta</label>
-                                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" class="input-field">
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Fecha de Expiración</label>
-                                    <input type="text" id="cardExpiry" placeholder="MM/AA" maxlength="5" class="input-field">
-                                </div>
-                                <div class="form-group">
-                                    <label>CVV</label>
-                                    <input type="text" id="cardCvv" placeholder="123" maxlength="4" class="input-field">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Nombre en la Tarjeta</label>
-                                <input type="text" id="cardName" placeholder="JUAN PEREZ" class="input-field">
-                            </div>
+                        <div class="indicator-status">
+                            <span id="cartOpenedStatus">⏳ Esperando...</span>
                         </div>
-
-                        <div class="action-buttons">
-                            <button class="btn btn-pay" id="payButton" onclick="attemptPayment()">
-                                🔒 Pagar $289.900
-                            </button>
-                        </div>
-                    </section>
-
-                    <!-- Indicadores de Tracking -->
-                    <section class="tracking-indicators">
-                        <h3>📊 Indicadores de Tracking (Demo)</h3>
-                        <div class="indicator-grid">
-                            <div class="indicator" id="timeIndicator">
-                                <span class="indicator-label">Tiempo en página</span>
-                                <span class="indicator-value" id="timeValue">0s</span>
-                                <span class="indicator-trigger">Trigger: 60s</span>
-                            </div>
-                            <div class="indicator" id="paymentChanges">
-                                <span class="indicator-label">Cambios de pago</span>
-                                <span class="indicator-value" id="paymentChangeCount">0</span>
-                                <span class="indicator-trigger">Trigger: 3</span>
-                            </div>
-                            <div class="indicator" id="failedAttempts">
-                                <span class="indicator-label">Intentos fallidos</span>
-                                <span class="indicator-value" id="failedCount">0</span>
-                                <span class="indicator-trigger">Trigger: 1</span>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-
-                <aside class="checkout-summary">
-                    <h3>📦 Resumen del Pedido</h3>
-                    <div class="summary-items">
-                        <div class="summary-item">
-                            <img src="https://via.placeholder.com/60x60/ff6b35/ffffff?text=🐕" alt="Producto">
-                            <div class="item-details">
-                                <span class="item-name">Dog Chow Adulto 22.7kg</span>
-                                <span class="item-qty">x1</span>
-                            </div>
-                            <span class="item-price">$189.900</span>
-                        </div>
-                        <div class="summary-item">
-                            <img src="https://via.placeholder.com/60x60/4a90d9/ffffff?text=🐱" alt="Producto">
-                            <div class="item-details">
-                                <span class="item-name">Cat Chow Adulto 8kg</span>
-                                <span class="item-qty">x1</span>
-                            </div>
-                            <span class="item-price">$89.900</span>
-                        </div>
+                        <p class="indicator-desc">Se dispara cuando el usuario abre el carrito</p>
                     </div>
-                    <div class="summary-totals">
-                        <div class="summary-row">
-                            <span>Subtotal</span>
-                            <span>$279.800</span>
+                    
+                    <div class="indicator" id="cartIdleIndicator">
+                        <div class="indicator-header">
+                            <span class="indicator-icon">⏱️</span>
+                            <span class="indicator-name">cart_idle_30s</span>
                         </div>
-                        <div class="summary-row">
-                            <span>Envío</span>
-                            <span>$10.100</span>
+                        <div class="indicator-status">
+                            <span id="cartIdleStatus">⏳ Esperando...</span>
+                            <span id="cartTimer" class="timer-display">0s</span>
                         </div>
-                        <div class="summary-row total">
-                            <span>Total</span>
-                            <span>$289.900</span>
-                        </div>
-                    </div>
-                </aside>
-            </div>
-
-            <!-- Información del Escenario -->
-            <section class="scenario-info">
-                <h2>ℹ️ Información del Escenario</h2>
-                <div class="scenario-details">
-                    <div class="detail-card">
-                        <h4>🎯 Objetivo</h4>
-                        <p>Recuperar ventas y evitar abandono en el proceso de checkout.</p>
-                    </div>
-                    <div class="detail-card">
-                        <h4>⚡ Se activa cuando</h4>
-                        <ul>
-                            <li>Cliente pasa más de 60 segundos en Checkout</li>
-                            <li>Cambia de medio de pago 3+ veces</li>
-                            <li>Intenta un método de pago fallido</li>
-                        </ul>
-                    </div>
-                    <div class="detail-card">
-                        <h4>🤖 Acciones del sistema</h4>
-                        <ul>
-                            <li>Pop-up contextual de ayuda</li>
-                            <li>Activación automática de asesor vía webchat</li>
-                        </ul>
+                        <p class="indicator-desc">Se dispara si el usuario pasa 30s con el carrito abierto</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Control de Sesión -->
-            <section class="tracking-section">
-                <h2>Control de Sesión</h2>
-                <div class="button-group">
-                    <button class="btn btn-destroy" onclick="destroySession()">
-                        🛑 Terminar Sesión de Tracking
-                    </button>
+            <!-- Información del Escenario -->
+            <section class="info-section">
+                <h2>ℹ️ Cómo funciona este escenario</h2>
+                <div class="info-cards">
+                    <div class="info-card">
+                        <h3>🎯 Objetivo</h3>
+                        <p>Detectar cuando un cliente está teniendo dificultades o dudas al revisar su carrito de compras.</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>📡 Eventos Generados</h3>
+                        <ul>
+                            <li><code>cart_opened</code> - Al abrir el carrito</li>
+                            <li><code>cart_idle_30s</code> - 30 segundos en el carrito</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h3>💡 Acción Predictiva</h3>
+                        <p>Después de 30 segundos en el carrito, aparece una oferta de ayuda proactiva al cliente.</p>
+                    </div>
                 </div>
             </section>
         </main>
 
         <footer>
-            <p>&copy; 2025 Laboratorio Predictive Engage - Genesys Cloud | Gabrica</p>
+            <p>&copy; 2025 Gabrica Conecta - Laboratorio Predictive Engage</p>
         </footer>
     </div>
 
-    <script src="script.js"></script>
     <script src="scenario-checkout.js"></script>
 </body>
 </html>
