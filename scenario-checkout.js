@@ -1,40 +1,23 @@
 // =====================================================
-// ESCENARIO 1: Carrito de Compras
-// Eventos: cart_opened, cart_idle_30s
+// ESCENARIO 1: Carrito de Compras - Funciones UI
+// (El tracking se maneja en tracking-escenario1.js)
 // =====================================================
-
-let cartTimer = null;
-let cartTimeSpent = 0;
-let cartIdleEventSent = false;
-let helpModalShown = false;
 
 // =====================================================
 // ABRIR CARRITO
 // =====================================================
 function openCart() {
     const modal = document.getElementById('cartModal');
-    modal.style.display = 'flex';
-    
-    // Enviar evento cart_opened a Genesys
-    if (typeof ac !== 'undefined') {
-        ac('event', {
-            eventName: 'cart_opened',
-            customAttributes: {
-                timestamp: new Date().toISOString(),
-                page: 'checkout'
-            }
-        });
-        console.log('📡 Evento enviado: cart_opened');
+    if (modal) {
+        modal.style.display = 'flex';
+        console.log('🛒 Carrito abierto');
+        
+        // Actualizar indicador visual
+        const indicator = document.getElementById('cartOpenedIndicator');
+        const status = document.getElementById('cartOpenedStatus');
+        if (indicator) indicator.classList.add('triggered');
+        if (status) status.textContent = '✅ Carrito abierto!';
     }
-    
-    // Actualizar indicador visual
-    const indicator = document.getElementById('cartOpenedIndicator');
-    const status = document.getElementById('cartOpenedStatus');
-    if (indicator) indicator.classList.add('triggered');
-    if (status) status.textContent = '✅ Enviado!';
-    
-    // Iniciar timer de inactividad en el carrito
-    startCartTimer();
 }
 
 // =====================================================
@@ -42,64 +25,9 @@ function openCart() {
 // =====================================================
 function closeCart() {
     const modal = document.getElementById('cartModal');
-    modal.style.display = 'none';
-    
-    // Detener el timer
-    stopCartTimer();
-    
-    console.log('🛒 Carrito cerrado');
-}
-
-// =====================================================
-// TIMER DE INACTIVIDAD EN CARRITO
-// =====================================================
-function startCartTimer() {
-    // Resetear contador
-    cartTimeSpent = 0;
-    
-    // Iniciar intervalo
-    cartTimer = setInterval(function() {
-        cartTimeSpent++;
-        
-        // Actualizar display del timer
-        const timerDisplay = document.getElementById('cartTimer');
-        if (timerDisplay) {
-            timerDisplay.textContent = cartTimeSpent + 's';
-        }
-        
-        // A los 30 segundos, enviar evento
-        if (cartTimeSpent === 30 && !cartIdleEventSent) {
-            cartIdleEventSent = true;
-            
-            // Enviar evento cart_idle_30s a Genesys
-            if (typeof ac !== 'undefined') {
-                ac('event', {
-                    eventName: 'cart_idle_30s',
-                    customAttributes: {
-                        secondsInCart: cartTimeSpent,
-                        timestamp: new Date().toISOString()
-                    }
-                });
-                console.log('📡 Evento enviado: cart_idle_30s');
-            }
-            
-            // Actualizar indicador visual
-            const indicator = document.getElementById('cartIdleIndicator');
-            const status = document.getElementById('cartIdleStatus');
-            if (indicator) indicator.classList.add('triggered');
-            if (status) status.textContent = '✅ Enviado!';
-            
-            // Mostrar modal de ayuda
-            showHelpModal();
-        }
-        
-    }, 1000);
-}
-
-function stopCartTimer() {
-    if (cartTimer) {
-        clearInterval(cartTimer);
-        cartTimer = null;
+    if (modal) {
+        modal.style.display = 'none';
+        console.log('🛒 Carrito cerrado');
     }
 }
 
@@ -107,18 +35,16 @@ function stopCartTimer() {
 // MODAL DE AYUDA
 // =====================================================
 function showHelpModal() {
-    if (helpModalShown) return;
-    helpModalShown = true;
-    
-    // Cerrar carrito y mostrar ayuda
     document.getElementById('cartModal').style.display = 'none';
     document.getElementById('helpModal').style.display = 'flex';
-    
     console.log('💬 Modal de ayuda mostrado');
 }
 
 function closeHelpModal() {
-    document.getElementById('helpModal').style.display = 'none';
+    const modal = document.getElementById('helpModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
 }
 
 function connectToAgent() {
@@ -130,7 +56,7 @@ function connectToAgent() {
         ac('event', {
             eventName: 'agent_connection_requested',
             customAttributes: {
-                source: 'cart_idle_help',
+                source: 'cart_help',
                 timestamp: new Date().toISOString()
             }
         });
@@ -146,10 +72,7 @@ function proceedToCheckout() {
 // INICIALIZACIÓN
 // =====================================================
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🛒 Escenario 1: Carrito de Compras iniciado');
-    console.log('📋 Eventos monitoreados:');
-    console.log('   - cart_opened: Al abrir el carrito');
-    console.log('   - cart_idle_30s: 30 segundos con el carrito abierto');
+    console.log('🛒 Escenario 1: Funciones UI cargadas');
 });
 
 // Cerrar modales al hacer clic fuera

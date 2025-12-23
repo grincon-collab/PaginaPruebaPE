@@ -59,6 +59,10 @@ const cartObserver = new MutationObserver(function(mutations) {
                 cartTimer = setInterval(function() {
                     cartOpenTime++;
                     
+                    // Actualizar display del timer
+                    const timerDisplay = document.getElementById('cartTimer');
+                    if (timerDisplay) timerDisplay.textContent = cartOpenTime + 's';
+                    
                     // Verificar si el carrito sigue visible
                     const stillVisible = cartModal.style.display === 'flex' || cartModal.style.display === 'block';
                     
@@ -79,6 +83,19 @@ const cartObserver = new MutationObserver(function(mutations) {
                         console.log('📡 EVENTO COMPUESTO ENVIADO: tiempo_Espera_Carro');
                         console.log('   ✓ Carrito visible: SÍ');
                         console.log('   ✓ Tiempo de espera: ' + cartOpenTime + 's');
+                        
+                        // Actualizar indicador visual
+                        const indicator = document.getElementById('cartIdleIndicator');
+                        const status = document.getElementById('cartIdleStatus');
+                        const timerDisplay = document.getElementById('cartTimer');
+                        if (indicator) indicator.classList.add('triggered');
+                        if (status) status.textContent = '✅ Evento enviado!';
+                        if (timerDisplay) timerDisplay.textContent = cartOpenTime + 's';
+                        
+                        // Mostrar modal de ayuda
+                        if (typeof showHelpModal === 'function') {
+                            showHelpModal();
+                        }
                     }
                     
                     if (!stillVisible) {
