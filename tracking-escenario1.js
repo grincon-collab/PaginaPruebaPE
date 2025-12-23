@@ -1,6 +1,6 @@
 // ============================================== 
 // TRACKING ESCENARIO 1: Carrito de Compras
-// Eventos: cart_opened, cart_idle_30s
+// Evento compuesto: tiempo_Espera_Carro (carrito visible + 30s)
 // ============================================== 
 
 (function(a,t,c,l,o,u,d){a['_genesysJourneySdk']=o;a[o]=a[o]||function(){
@@ -34,39 +34,83 @@ ac('load', 'autotrackClick', {
     console.log('✅ autotrackClick configurado para: cart_opened');
 });
 
-// Detectar cuando el modal del carrito está visible (viewport)
-ac('load', 'autotrackInViewport', {
-    inViewportEvents: [
-        { 
-            selector: '#cartModal', 
-            eventName: 'cart_modal_viewed',
-            customAttributes: {
-                scenario: 'checkout_rescue'
+// =====================================================
+// EVENTO COMPUESTO: tiempo_Espera_Carro
+// Condición: Carrito visible + 30 segundos de espera
+// =====================================================
+
+let cartTimer = null;
+let cartOpenTime = 0;
+let tiempoEsperaEventSent = false;
+
+// Observador para detectar cuando el modal del carrito se hace visible
+const cartObserver = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        const cartModal = document.getElementById('cartModal');
+        if (cartModal) {
+            const isVisible = cartModal.style.display === 'flex' || cartModal.style.display === 'block';
+            
+            if (isVisible && !cartTimer) {
+                // Carrito se abrió - iniciar timer
+                console.log('🛒 Carrito visible - iniciando contador de 30s');
+                cartOpenTime = 0;
+                tiempoEsperaEventSent = false;
+                
+                cartTimer = setInterval(function() {
+                    cartOpenTime++;
+                    
+                    // Verificar si el carrito sigue visible
+                    const stillVisible = cartModal.style.display === 'flex' || cartModal.style.display === 'block';
+                    
+                    if (stillVisible && cartOpenTime >= 30 && !tiempoEsperaEventSent) {
+                        // CONDICIÓN CUMPLIDA: Carrito visible + 30 segundos
+                        tiempoEsperaEventSent = true;
+                        
+                        ac('event', {
+                            eventName: 'tiempo_Espera_Carro',
+                            customAttributes: {
+                                scenario: 'checkout_rescue',
+                                trigger: 'cart_visible_30s',
+                                seconds_waited: cartOpenTime,
+                                timestamp: new Date().toISOString()
+                            }
+                        });
+                        
+                        console.log('📡 EVENTO COMPUESTO ENVIADO: tiempo_Espera_Carro');
+                        console.log('   ✓ Carrito visible: SÍ');
+                        console.log('   ✓ Tiempo de espera: ' + cartOpenTime + 's');
+                    }
+                    
+                    if (!stillVisible) {
+                        // Carrito se cerró - detener timer
+                        clearInterval(cartTimer);
+                        cartTimer = null;
+                        console.log('🛒 Carrito cerrado - timer detenido en ' + cartOpenTime + 's');
+                    }
+                }, 1000);
+                
+            } else if (!isVisible && cartTimer) {
+                // Carrito se cerró
+                clearInterval(cartTimer);
+                cartTimer = null;
+                console.log('🛒 Carrito cerrado - timer detenido');
             }
         }
-    ]
-}, function() {
-    console.log('✅ autotrackInViewport configurado para: cart_modal_viewed');
+    });
 });
 
-// Detectar inactividad (idle) mientras el carrito está abierto
-ac('load', 'autotrackIdle', {
-    idleEvents: [
-        { 
-            idleAfter: 30, 
-            eventName: 'cart_idle_30s',
-            customAttributes: {
-                scenario: 'checkout_rescue',
-                trigger: 'friction_detected'
-            }
-        }
-    ]
-}, function() {
-    console.log('✅ autotrackIdle configurado para: cart_idle_30s');
+// Iniciar observador cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', function() {
+    const cartModal = document.getElementById('cartModal');
+    if (cartModal) {
+        cartObserver.observe(cartModal, { 
+            attributes: true, 
+            attributeFilter: ['style'] 
+        });
+        console.log('👁️ Observador de carrito iniciado');
+    }
 });
 
 console.log('📦 Tracking Escenario 1: Carrito de Compras - Cargado');
-console.log('📋 Eventos monitoreados:');
-console.log('   • cart_opened - Click en ícono del carrito');
-console.log('   • cart_modal_viewed - Modal del carrito visible');
-console.log('   • cart_idle_30s - 30 segundos de inactividad');
+console.log('📋 Evento compuesto configurado:');
+console.log('   • tiempo_Espera_Carro = Carrito visible + 30 segundos');
