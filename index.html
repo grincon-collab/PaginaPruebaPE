@@ -8,12 +8,8 @@
     
     <!-- ============================================== -->
     <!-- GENESYS CLOUD PREDICTIVE ENGAGEMENT TRACKING   -->
-    <!-- Pegue aquí su Tracking Snippet de Genesys Cloud -->
     <!-- ============================================== -->
-    
-    <!-- INICIO TRACKING SNIPPET -->
-    
-    <!-- FIN TRACKING SNIPPET -->
+    <script src="tracking.js"></script>
     
 </head>
 <body>
@@ -63,17 +59,11 @@
             </section>
 
             <section class="tracking-section">
-                <h2>Tracking Snippet</h2>
-                <p>Pegue su código de Tracking Snippet de Predictive Engagement aquí:</p>
-                <div class="snippet-container">
-                    <textarea id="trackingSnippet" placeholder="<!-- Pegue aquí su Tracking Snippet de Genesys Cloud Predictive Engagement -->
-
-Ejemplo:
-<script>
-  (function(g,e,n,s,y,c){...})(window,document,'script','ac','YOUR_TRACKING_ID');
-</script>"></textarea>
-                    <button class="btn btn-apply" onclick="applySnippet()">
-                        ✅ Aplicar Tracking Snippet
+                <h2>Control de Sesión</h2>
+                <p>Utilice este botón para terminar la sesión de seguimiento:</p>
+                <div class="button-group">
+                    <button class="btn btn-destroy" onclick="destroySession()">
+                        🛑 Terminar Sesión de Tracking
                     </button>
                 </div>
                 <div id="snippetStatus" class="status-message"></div>

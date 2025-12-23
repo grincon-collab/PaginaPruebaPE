@@ -1,3 +1,18 @@
+// Función para terminar la sesión de tracking de Genesys
+function destroySession() {
+    try {
+        if (typeof ac !== 'undefined') {
+            ac('destroy');
+            alert('Información de seguimiento eliminada');
+        } else {
+            alert('No hay sesión de tracking activa');
+        }
+    } catch (error) {
+        console.error('Error al destruir sesión:', error);
+        alert('Error al terminar la sesión');
+    }
+}
+
 // Funciones para el Modal del Carrito de Compras
 function openCart() {
     const modal = document.getElementById('cartModal');

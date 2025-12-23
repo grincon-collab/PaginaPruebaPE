@@ -8,12 +8,8 @@
     
     <!-- ============================================== -->
     <!-- GENESYS CLOUD PREDICTIVE ENGAGEMENT TRACKING   -->
-    <!-- Pegue aquí su Tracking Snippet de Genesys Cloud -->
     <!-- ============================================== -->
-    
-    <!-- INICIO TRACKING SNIPPET -->
-    
-    <!-- FIN TRACKING SNIPPET -->
+    <script src="tracking.js"></script>
     
 </head>
 <body>
@@ -60,6 +56,17 @@
                         🏠 Regresar a Página Inicial
                     </a>
                 </div>
+            </section>
+
+            <section class="tracking-section">
+                <h2>Control de Sesión</h2>
+                <p>Utilice este botón para terminar la sesión de seguimiento:</p>
+                <div class="button-group">
+                    <button class="btn btn-destroy" onclick="destroySession()">
+                        🛑 Terminar Sesión de Tracking
+                    </button>
+                </div>
+                <div id="snippetStatus" class="status-message"></div>
             </section>
 
             <section class="content-section">
