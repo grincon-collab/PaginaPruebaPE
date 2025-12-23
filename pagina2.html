@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página 2 - Predictive Engage Genesys Cloud</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Modal del Carrito de Compras -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeCart()">&times;</span>
+            <h2>🛒 Carrito de Compras</h2>
+            <div class="cart-items">
+                <p>Tu carrito está vacío</p>
+                <div class="cart-placeholder">
+                    <div class="placeholder-item">
+                        <span>Producto de ejemplo 1</span>
+                        <span>$99.99</span>
+                    </div>
+                    <div class="placeholder-item">
+                        <span>Producto de ejemplo 2</span>
+                        <span>$149.99</span>
+                    </div>
+                </div>
+            </div>
+            <div class="cart-total">
+                <strong>Total: $249.98</strong>
+            </div>
+            <button class="btn btn-primary">Proceder al Pago</button>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="container">
+        <header>
+            <h1>Página 2</h1>
+            <p class="subtitle">Predictive Engage Genesys Cloud</p>
+        </header>
+
+        <main>
+            <section class="buttons-section">
+                <h2>Navegación</h2>
+                <div class="button-group">
+                    <button class="btn btn-cart" onclick="openCart()">
+                        🛒 Carrito de Compras
+                    </button>
+                    <a href="index.html" class="btn btn-back">
+                        🏠 Regresar a Página Inicial
+                    </a>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Contenido de Página 2</h2>
+                <div class="content-cards">
+                    <div class="content-card">
+                        <h3>📱 Experiencia Móvil</h3>
+                        <p>Optimiza la experiencia del usuario en dispositivos móviles con Predictive Engagement.</p>
+                    </div>
+                    <div class="content-card">
+                        <h3>💬 Chat Proactivo</h3>
+                        <p>Ofrece asistencia proactiva basada en el comportamiento del visitante.</p>
+                    </div>
+                    <div class="content-card">
+                        <h3>📈 Análisis en Tiempo Real</h3>
+                        <p>Monitorea y analiza el comportamiento de los visitantes en tiempo real.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="demo-section">
+                <h2>Área de Demostración</h2>
+                <p>Esta sección puede utilizarse para probar diferentes interacciones con Predictive Engagement.</p>
+                <div class="demo-buttons">
+                    <button class="btn btn-demo" onclick="simulateEvent('click_product')">
+                        Simular Click en Producto
+                    </button>
+                    <button class="btn btn-demo" onclick="simulateEvent('add_to_cart')">
+                        Simular Agregar al Carrito
+                    </button>
+                    <button class="btn btn-demo" onclick="simulateEvent('view_page')">
+                        Simular Vista de Página
+                    </button>
+                </div>
+                <div id="eventStatus" class="status-message"></div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Laboratorio Predictive Engage - Genesys Cloud</p>
+        </footer>
+    </div>
+
+    <!-- Contenedor para el Tracking Snippet inyectado -->
+    <div id="trackingContainer"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

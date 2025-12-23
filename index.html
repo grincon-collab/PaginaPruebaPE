@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predictive Engage Genesys Cloud</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Modal del Carrito de Compras -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeCart()">&times;</span>
+            <h2>🛒 Carrito de Compras</h2>
+            <div class="cart-items">
+                <p>Tu carrito está vacío</p>
+                <div class="cart-placeholder">
+                    <div class="placeholder-item">
+                        <span>Producto de ejemplo 1</span>
+                        <span>$99.99</span>
+                    </div>
+                    <div class="placeholder-item">
+                        <span>Producto de ejemplo 2</span>
+                        <span>$149.99</span>
+                    </div>
+                </div>
+            </div>
+            <div class="cart-total">
+                <strong>Total: $249.98</strong>
+            </div>
+            <button class="btn btn-primary">Proceder al Pago</button>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="container">
+        <header>
+            <h1>Predictive Engage Genesys Cloud</h1>
+            <p class="subtitle">Laboratorio de Pruebas</p>
+        </header>
+
+        <main>
+            <section class="buttons-section">
+                <h2>Navegación</h2>
+                <div class="button-group">
+                    <button class="btn btn-cart" onclick="openCart()">
+                        🛒 Carrito de Compras
+                    </button>
+                    <a href="pagina2.html" class="btn btn-secondary">
+                        📄 Ir a Página 2
+                    </a>
+                </div>
+            </section>
+
+            <section class="tracking-section">
+                <h2>Tracking Snippet</h2>
+                <p>Pegue su código de Tracking Snippet de Predictive Engagement aquí:</p>
+                <div class="snippet-container">
+                    <textarea id="trackingSnippet" placeholder="<!-- Pegue aquí su Tracking Snippet de Genesys Cloud Predictive Engagement -->
+
+Ejemplo:
+<script>
+  (function(g,e,n,s,y,c){...})(window,document,'script','ac','YOUR_TRACKING_ID');
+</script>"></textarea>
+                    <button class="btn btn-apply" onclick="applySnippet()">
+                        ✅ Aplicar Tracking Snippet
+                    </button>
+                </div>
+                <div id="snippetStatus" class="status-message"></div>
+            </section>
+
+            <section class="info-section">
+                <h2>Información</h2>
+                <div class="info-cards">
+                    <div class="info-card">
+                        <h3>🎯 Predictive Engagement</h3>
+                        <p>Utiliza inteligencia artificial para predecir el comportamiento del visitante y ofrecer interacciones personalizadas.</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>📊 Tracking Snippet</h3>
+                        <p>El snippet de seguimiento permite rastrear la actividad del visitante en tus páginas web.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Laboratorio Predictive Engage - Genesys Cloud</p>
+        </footer>
+    </div>
+
+    <!-- Contenedor para el Tracking Snippet inyectado -->
+    <div id="trackingContainer"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
