@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Gabrica Conecta</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="scenarios.css">
+    
+    <!-- GENESYS CLOUD PREDICTIVE ENGAGEMENT TRACKING -->
+    <script src="tracking.js"></script>
+    
+</head>
+<body>
+    <!-- Modal de Ayuda Predictiva -->
+    <div id="helpModal" class="modal help-modal">
+        <div class="modal-content help-content">
+            <span class="close-btn" onclick="closeHelpModal()">&times;</span>
+            <div class="help-icon">🛒</div>
+            <h2>¿Te podemos ayudar a completar tu orden?</h2>
+            <p>Notamos que estás teniendo dificultades. Un asesor puede ayudarte a finalizar tu compra.</p>
+            <div class="help-buttons">
+                <button class="btn btn-help-primary" onclick="connectToAgent()">
+                    💬 Hablar con un asesor
+                </button>
+                <button class="btn btn-help-secondary" onclick="closeHelpModal()">
+                    Continuar solo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Pago Fallido -->
+    <div id="paymentFailedModal" class="modal">
+        <div class="modal-content error-content">
+            <span class="close-btn" onclick="closePaymentFailedModal()">&times;</span>
+            <div class="help-icon">❌</div>
+            <h2>Error en el pago</h2>
+            <p>No pudimos procesar tu pago. Por favor, intenta con otro método.</p>
+            <button class="btn btn-primary" onclick="closePaymentFailedModal()">Intentar de nuevo</button>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="container">
+        <header class="scenario-header">
+            <div class="brand">
+                <span class="brand-logo">🐾</span>
+                <span class="brand-name">Gabrica Conecta</span>
+            </div>
+            <h1>Checkout</h1>
+            <p class="subtitle">Escenario 1: Intento de compra con fricción</p>
+        </header>
+
+        <main>
+            <!-- Navegación -->
+            <section class="buttons-section">
+                <div class="button-group">
+                    <a href="index.html" class="btn btn-back">
+                        🏠 Inicio
+                    </a>
+                    <a href="escenarios.html" class="btn btn-secondary">
+                        📋 Ver Escenarios
+                    </a>
+                </div>
+            </section>
+
+            <!-- Progress Bar -->
+            <div class="checkout-progress">
+                <div class="progress-step completed">
+                    <span class="step-number">1</span>
+                    <span class="step-label">Carrito</span>
+                </div>
+                <div class="progress-line completed"></div>
+                <div class="progress-step completed">
+                    <span class="step-number">2</span>
+                    <span class="step-label">Datos</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step active">
+                    <span class="step-number">3</span>
+                    <span class="step-label">Pago</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step">
+                    <span class="step-number">4</span>
+                    <span class="step-label">Confirmar</span>
+                </div>
+            </div>
+
+            <!-- Resumen del Pedido -->
+            <div class="checkout-layout">
+                <div class="checkout-main">
+                    <section class="checkout-section" id="paymentSection">
+                        <h2>💳 Método de Pago</h2>
+                        
+                        <div class="payment-methods">
+                            <div class="payment-option" onclick="selectPayment('credit')">
+                                <input type="radio" name="payment" id="credit" checked>
+                                <label for="credit">
+                                    <span class="payment-icon">💳</span>
+                                    <span>Tarjeta de Crédito</span>
+                                </label>
+                            </div>
+                            <div class="payment-option" onclick="selectPayment('debit')">
+                                <input type="radio" name="payment" id="debit">
+                                <label for="debit">
+                                    <span class="payment-icon">🏦</span>
+                                    <span>Tarjeta Débito</span>
+                                </label>
+                            </div>
+                            <div class="payment-option" onclick="selectPayment('pse')">
+                                <input type="radio" name="payment" id="pse">
+                                <label for="pse">
+                                    <span class="payment-icon">🔄</span>
+                                    <span>PSE</span>
+                                </label>
+                            </div>
+                            <div class="payment-option" onclick="selectPayment('cash')">
+                                <input type="radio" name="payment" id="cash">
+                                <label for="cash">
+                                    <span class="payment-icon">💵</span>
+                                    <span>Efectivo (Efecty/Baloto)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="card-form" id="cardForm">
+                            <h3>Datos de la Tarjeta</h3>
+                            <div class="form-group">
+                                <label>Número de Tarjeta</label>
+                                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" class="input-field">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Fecha de Expiración</label>
+                                    <input type="text" id="cardExpiry" placeholder="MM/AA" maxlength="5" class="input-field">
+                                </div>
+                                <div class="form-group">
+                                    <label>CVV</label>
+                                    <input type="text" id="cardCvv" placeholder="123" maxlength="4" class="input-field">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Nombre en la Tarjeta</label>
+                                <input type="text" id="cardName" placeholder="JUAN PEREZ" class="input-field">
+                            </div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="btn btn-pay" id="payButton" onclick="attemptPayment()">
+                                🔒 Pagar $289.900
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- Indicadores de Tracking -->
+                    <section class="tracking-indicators">
+                        <h3>📊 Indicadores de Tracking (Demo)</h3>
+                        <div class="indicator-grid">
+                            <div class="indicator" id="timeIndicator">
+                                <span class="indicator-label">Tiempo en página</span>
+                                <span class="indicator-value" id="timeValue">0s</span>
+                                <span class="indicator-trigger">Trigger: 60s</span>
+                            </div>
+                            <div class="indicator" id="paymentChanges">
+                                <span class="indicator-label">Cambios de pago</span>
+                                <span class="indicator-value" id="paymentChangeCount">0</span>
+                                <span class="indicator-trigger">Trigger: 3</span>
+                            </div>
+                            <div class="indicator" id="failedAttempts">
+                                <span class="indicator-label">Intentos fallidos</span>
+                                <span class="indicator-value" id="failedCount">0</span>
+                                <span class="indicator-trigger">Trigger: 1</span>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <aside class="checkout-summary">
+                    <h3>📦 Resumen del Pedido</h3>
+                    <div class="summary-items">
+                        <div class="summary-item">
+                            <img src="https://via.placeholder.com/60x60/ff6b35/ffffff?text=🐕" alt="Producto">
+                            <div class="item-details">
+                                <span class="item-name">Dog Chow Adulto 22.7kg</span>
+                                <span class="item-qty">x1</span>
+                            </div>
+                            <span class="item-price">$189.900</span>
+                        </div>
+                        <div class="summary-item">
+                            <img src="https://via.placeholder.com/60x60/4a90d9/ffffff?text=🐱" alt="Producto">
+                            <div class="item-details">
+                                <span class="item-name">Cat Chow Adulto 8kg</span>
+                                <span class="item-qty">x1</span>
+                            </div>
+                            <span class="item-price">$89.900</span>
+                        </div>
+                    </div>
+                    <div class="summary-totals">
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span>$279.800</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Envío</span>
+                            <span>$10.100</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total</span>
+                            <span>$289.900</span>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+
+            <!-- Información del Escenario -->
+            <section class="scenario-info">
+                <h2>ℹ️ Información del Escenario</h2>
+                <div class="scenario-details">
+                    <div class="detail-card">
+                        <h4>🎯 Objetivo</h4>
+                        <p>Recuperar ventas y evitar abandono en el proceso de checkout.</p>
+                    </div>
+                    <div class="detail-card">
+                        <h4>⚡ Se activa cuando</h4>
+                        <ul>
+                            <li>Cliente pasa más de 60 segundos en Checkout</li>
+                            <li>Cambia de medio de pago 3+ veces</li>
+                            <li>Intenta un método de pago fallido</li>
+                        </ul>
+                    </div>
+                    <div class="detail-card">
+                        <h4>🤖 Acciones del sistema</h4>
+                        <ul>
+                            <li>Pop-up contextual de ayuda</li>
+                            <li>Activación automática de asesor vía webchat</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Control de Sesión -->
+            <section class="tracking-section">
+                <h2>Control de Sesión</h2>
+                <div class="button-group">
+                    <button class="btn btn-destroy" onclick="destroySession()">
+                        🛑 Terminar Sesión de Tracking
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Laboratorio Predictive Engage - Genesys Cloud | Gabrica</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="scenario-checkout.js"></script>
+</body>
+</html>
