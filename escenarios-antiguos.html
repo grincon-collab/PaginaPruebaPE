@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escenarios Antiguos - Predictive Engagement</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #495057;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .btn-back {
+            display: inline-block;
+            background: #495057;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .btn-back:hover {
+            background: #343a40;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(73, 80, 87, 0.4);
+        }
+
+        .scenarios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .scenario-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .scenario-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .scenario-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .scenario-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 10px;
+        }
+
+        .scenario-description {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .section-title {
+            color: white;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            padding-left: 10px;
+            border-left: 4px solid white;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Escenarios Antiguos</h1>
+            <p>Acceso a escenarios de prueba anteriores</p>
+            <a href="index.html" class="btn-back">← Volver al Menú Principal</a>
+        </div>
+
+        <!-- Página Principal Antigua -->
+        <div class="section">
+            <h2 class="section-title">🏠 Página Principal Antigua</h2>
+            <div class="scenarios-grid">
+                <a href="index-old.html" class="scenario-card">
+                    <div class="scenario-icon">🏠</div>
+                    <div class="scenario-title">Página Principal Original</div>
+                    <div class="scenario-description">
+                        Página principal original con todos los módulos SDK, tracking completo y navegación a las diferentes secciones.
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Escenarios de Carritos -->
+        <div class="section">
+            <h2 class="section-title">🛒 Escenarios de Carritos</h2>
+            <div class="scenarios-grid">
+                <a href="checkout.html" class="scenario-card">
+                    <div class="scenario-icon">🛒</div>
+                    <div class="scenario-title">Checkout</div>
+                    <div class="scenario-description">
+                        Escenario de proceso de checkout con tracking de abandono de carrito.
+                    </div>
+                </a>
+
+                <a href="carrito-vtex.html" class="scenario-card">
+                    <div class="scenario-icon">🛒</div>
+                    <div class="scenario-title">Carrito VTEX</div>
+                    <div class="scenario-description">
+                        Simulación de carrito estilo VTEX con eventos de apertura, cierre y tiempo de inactividad (60s).
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Escenarios Gabrica -->
+        <div class="section">
+            <h2 class="section-title">🎭 Escenarios Gabrica</h2>
+            <div class="scenarios-grid">
+                <a href="escenarios.html" class="scenario-card">
+                    <div class="scenario-icon">🎭</div>
+                    <div class="scenario-title">Menú de Escenarios</div>
+                    <div class="scenario-description">
+                        Acceso a los 5 escenarios específicos de Gabrica con tracking personalizado.
+                    </div>
+                </a>
+
+                <a href="productos.html" class="scenario-card">
+                    <div class="scenario-icon">📦</div>
+                    <div class="scenario-title">Productos (Esc. 2)</div>
+                    <div class="scenario-description">
+                        Escenario de navegación de productos con tracking de clicks y vistas.
+                    </div>
+                </a>
+
+                <a href="registro.html" class="scenario-card">
+                    <div class="scenario-icon">📝</div>
+                    <div class="scenario-title">Registro (Esc. 3)</div>
+                    <div class="scenario-description">
+                        Escenario de formulario de registro con tracking de completado y abandono.
+                    </div>
+                </a>
+
+                <a href="puntos.html" class="scenario-card">
+                    <div class="scenario-icon">⭐</div>
+                    <div class="scenario-title">Puntos (Esc. 4)</div>
+                    <div class="scenario-description">
+                        Escenario de programa de puntos y recompensas con tracking personalizado.
+                    </div>
+                </a>
+
+                <a href="landing-puntos.html" class="scenario-card">
+                    <div class="scenario-icon">🎯</div>
+                    <div class="scenario-title">Landing Puntos (Esc. 5)</div>
+                    <div class="scenario-description">
+                        Landing page del programa de puntos con tracking de interacciones.
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Páginas de Prueba -->
+        <div class="section">
+            <h2 class="section-title">🧪 Páginas de Prueba</h2>
+            <div class="scenarios-grid">
+                <a href="pagina2.html" class="scenario-card">
+                    <div class="scenario-icon">📄</div>
+                    <div class="scenario-title">Página 2</div>
+                    <div class="scenario-description">
+                        Página secundaria de prueba con tracking básico.
+                    </div>
+                </a>
+
+                <a href="modulos.html" class="scenario-card">
+                    <div class="scenario-icon">📦</div>
+                    <div class="scenario-title">Módulos SDK</div>
+                    <div class="scenario-description">
+                        Demostración de todos los módulos del SDK: autotrackClick, autotrackIdle, autotrackScrollDepth, etc.
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
