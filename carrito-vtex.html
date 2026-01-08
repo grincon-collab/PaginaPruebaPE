@@ -186,39 +186,7 @@
             display: block;
         }
 
-        /* Form Test */
-        .form-section {
-            margin-top: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-        }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #333;
-            font-weight: 600;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-        }
 
         .tracking-info {
             margin-top: 20px;
@@ -290,28 +258,7 @@
                 <li><strong>abrirMiCarrito</strong> - Se dispara al abrir el carrito</li>
                 <li><strong>cerrarMiCarrito</strong> - Se dispara al cerrar el carrito</li>
                 <li><strong>tiempoEsperaMaximo</strong> - Se dispara después de 60 segundos de inactividad con el carrito abierto</li>
-                <li><strong>Form Tracking</strong> - Captura datos del formulario al enviarlo o abandonarlo</li>
             </ul>
-        </div>
-
-        <!-- Formulario de Prueba -->
-        <div class="form-section">
-            <h2>📝 Formulario de Prueba</h2>
-            <form id="testForm" name="testForm">
-                <div class="form-group">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="tu@email.com">
-                </div>
-                <div class="form-group">
-                    <label for="comentarios">Comentarios:</label>
-                    <textarea id="comentarios" name="comentarios" rows="4" placeholder="Escribe tus comentarios..."></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Enviar Formulario</button>
-            </form>
         </div>
 
         <div class="buttons-container">
@@ -343,12 +290,9 @@
     </script>
 
     <!-- ============================================== -->
-    <!-- TRACKING ESPECÍFICO: VTEX MINICART + FORMS     -->
+    <!-- TRACKING ESPECÍFICO: VTEX MINICART              -->
     <!-- ============================================== -->
     <script>
-        /* ===================== FORM TRACKING ===================== */
-        ac('forms:track','form',{captureFormDataOnSubmit:true,captureFormDataOnAbandon:true});
-
         /* ===================== VTEX MINICART EVENTS + IDLE ===================== */
         (function(){
             if(window.__apdMinicartInit){ return; }
@@ -482,7 +426,6 @@
         })();
 
         console.log('✅ Tracking configurado:');
-        console.log('   • Form tracking: ON');
         console.log('   • VTEX Minicart events: ON');
         console.log('   • Idle timer: 60 segundos');
     </script>
@@ -504,13 +447,6 @@
             drawer.classList.add('vtex-minicart-2-x-closed');
             overlay.classList.remove('active');
         }
-
-        // Manejar envío del formulario
-        document.getElementById('testForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Formulario enviado! Los datos fueron capturados por el tracking.');
-            console.log('📝 Formulario enviado - datos capturados');
-        });
 
         console.log('📄 Página de prueba VTEX Minicart cargada');
     </script>
