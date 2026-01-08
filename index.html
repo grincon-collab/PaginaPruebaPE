@@ -3,143 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escenarios de Predictive Engagement</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .container {
-            background: white;
-            border-radius: 20px;
-            padding: 60px 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 800px;
-            width: 100%;
-            text-align: center;
-        }
-
-        h1 {
-            color: #667eea;
-            font-size: 2.5em;
-            margin-bottom: 15px;
-        }
-
-        .subtitle {
-            color: #666;
-            font-size: 1.2em;
-            margin-bottom: 50px;
-        }
-
-        .menu-section {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-top: 40px;
-        }
-
-        .menu-item {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .menu-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
-        }
-
-        .menu-item-content {
-            text-align: left;
-            flex: 1;
-        }
-
-        .menu-item-title {
-            font-size: 1.5em;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .menu-item-description {
-            font-size: 0.95em;
-            opacity: 0.9;
-        }
-
-        .menu-item-icon {
-            font-size: 3em;
-            margin-left: 20px;
-        }
-
-        .menu-item.secondary {
-            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
-        }
-
-        .divider {
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #ddd, transparent);
-            margin: 30px 0;
-        }
-
-        footer {
-            margin-top: 40px;
-            color: #999;
-            font-size: 0.9em;
-        }
-    </style>
+    <title>Predictive Engage Genesys Cloud</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- ============================================== -->
+    <!-- GENESYS CLOUD PREDICTIVE ENGAGEMENT TRACKING   -->
+    <!-- ============================================== -->
+    <script src="tracking.js"></script>
+    
 </head>
 <body>
-    <div class="container">
-        <h1>🎯 Escenarios de Predictive Engagement</h1>
-        <p class="subtitle">Genesys Cloud - Laboratorio de Pruebas</p>
-
-        <div class="menu-section">
-            <!-- Escenario Básico -->
-            <a href="escenario-basico.html" class="menu-item">
-                <div class="menu-item-content">
-                    <div class="menu-item-title">Escenario Básico</div>
-                    <div class="menu-item-description">
-                        Página de prueba con tracking fundamental: pageview, form tracking y detección de cambios de URL
+    <!-- Modal del Carrito de Compras -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeCart()">&times;</span>
+            <h2>🛒 Carrito de Compras</h2>
+            <div class="cart-items">
+                <p>Tu carrito está vacío</p>
+                <div class="cart-placeholder">
+                    <div class="placeholder-item">
+                        <span>Producto de ejemplo 1</span>
+                        <span>$99.99</span>
+                    </div>
+                    <div class="placeholder-item">
+                        <span>Producto de ejemplo 2</span>
+                        <span>$149.99</span>
                     </div>
                 </div>
-                <div class="menu-item-icon">📄</div>
-            </a>
-
-            <div class="divider"></div>
-
-            <!-- Escenarios Antiguos -->
-            <a href="escenarios-antiguos.html" class="menu-item secondary">
-                <div class="menu-item-content">
-                    <div class="menu-item-title">Escenarios Antiguos</div>
-                    <div class="menu-item-description">
-                        Acceso a escenarios de prueba anteriores: carritos, módulos SDK, y casos de uso específicos
-                    </div>
-                </div>
-                <div class="menu-item-icon">📚</div>
-            </a>
+            </div>
+            <div class="cart-total">
+                <strong>Total: $249.98</strong>
+            </div>
+            <button class="btn btn-primary">Proceder al Pago</button>
         </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="container">
+        <header>
+            <h1>Predictive Engage Genesys Cloud</h1>
+            <p class="subtitle">Laboratorio de Pruebas</p>
+        </header>
+
+        <main>
+            <section class="buttons-section">
+                <h2>Navegación</h2>
+                <div class="button-group">
+                    <button class="btn btn-cart" onclick="openCart()">
+                        🛒 Carrito de Compras
+                    </button>
+                    <a href="pagina2.html" class="btn btn-secondary">
+                        📄 Ir a Página 2
+                    </a>
+                    <a href="modulos.html" class="btn btn-modules">
+                        📦 Módulos SDK
+                    </a>
+                    <a href="escenarios.html" class="btn btn-scenarios">
+                        🎭 Escenarios Gabrica
+                    </a>
+                    <a href="carrito-vtex.html" class="btn btn-primary">
+                        🛒 Carrito VTEX - Tracking Test
+                    </a>
+                </div>
+            </section>
+
+            <section class="tracking-section">
+                <h2>Control de Sesión</h2>
+                <p>Utilice este botón para terminar la sesión de seguimiento:</p>
+                <div class="button-group">
+                    <button class="btn btn-destroy" onclick="destroySession()">
+                        🛑 Terminar Sesión de Tracking
+                    </button>
+                </div>
+                <div id="snippetStatus" class="status-message"></div>
+            </section>
+
+            <section class="info-section">
+                <h2>Información</h2>
+                <div class="info-cards">
+                    <div class="info-card">
+                        <h3>🎯 Predictive Engagement</h3>
+                        <p>Utiliza inteligencia artificial para predecir el comportamiento del visitante y ofrecer interacciones personalizadas.</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>📊 Tracking Snippet</h3>
+                        <p>El snippet de seguimiento permite rastrear la actividad del visitante en tus páginas web.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
 
         <footer>
-            &copy; 2025 Genesys Cloud Predictive Engagement
+            <p>&copy; 2025 Laboratorio Predictive Engage - Genesys Cloud</p>
         </footer>
     </div>
+
+    <!-- Contenedor para el Tracking Snippet inyectado -->
+    <div id="trackingContainer"></div>
+
+    <script src="script.js"></script>
 </body>
 </html>
