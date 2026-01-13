@@ -60,62 +60,8 @@
         </div>
     </div>
 
-    <script>
-        function reiniciarTracking() {
-            // Enviar evento de finalización a Genesys
-            try {
-                Genesys("command", "Journey.record", {
-                    eventName: 'finalizarSesionTracking',
-                    customAttributes: {
-                        url: location.href,
-                        timestamp: new Date().toISOString(),
-                        action: 'reset'
-                    }
-                });
-                console.log('📊 Evento: finalizarSesionTracking enviado a Genesys');
-            } catch(e) {
-                console.error('Error enviando evento de finalización:', e);
-            }
-
-            // Limpiar variables globales del tracking
-            if (window.__apdMinicartInit) {
-                delete window.__apdMinicartInit;
-                console.log('✅ Variable __apdMinicartInit eliminada');
-            }
-
-            if (window.__apdBindMinicart) {
-                delete window.__apdBindMinicart;
-                console.log('✅ Función __apdBindMinicart eliminada');
-            }
-
-            // Limpiar localStorage si hay datos
-            try {
-                localStorage.removeItem('trackingData');
-                console.log('✅ Datos de tracking eliminados del localStorage');
-            } catch(e) {}
-
-            // Mostrar confirmación
-            alert('✅ Tracking reiniciado correctamente.\n\nPuedes comenzar una nueva prueba.');
-            
-            // Opcional: recargar la página para un reinicio completo
-            // location.reload();
-        }
-    </script>
-
-    <!-- Genesys Chat Widget -->
-    <script type="text/javascript" charset="utf-8">
-      (function (g, e, n, es, ys) {
-        g['_genesysJs'] = e;
-        g[e] = g[e] || function () {
-          (g[e].q = g[e].q || []).push(arguments)
-        };
-        g[e].t = 1 * new Date();
-        g[e].c = es;
-        ys = document.createElement('script'); ys.async = 1; ys.src = n; ys.charset = 'utf-8'; document.head.appendChild(ys);
-      })(window, 'Genesys', 'https://apps.mypurecloud.com/genesys-bootstrap/genesys.min.js', {
-        environment: 'prod',
-        deploymentId: '8a4367b7-a7a9-4f0e-b4f8-a79c899c9db8'
-      });
-    </script>
+    <!-- Scripts de Tracking y Genesys -->
+    <script src="js/tracking-reset.js"></script>
+    <script src="js/genesys-widget.js"></script>
 </body>
 </html>
