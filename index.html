@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Prueba - Genesys Chat</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin: 20px 0;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #218838;
+        }
+        .btn-reset {
+            background-color: #dc3545;
+            margin-top: 30px;
+        }
+        .btn-reset:hover {
+            background-color: #c82333;
+        }
+        .btn-container {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Página de Prueba con Genesys Chat</h1>
+        <div class="btn-container">
+            <a href="pagina2.html" class="btn">Ir a Segunda Página →</a>
+            <a href="pagina3.html" class="btn">Ir a Página 3 (Carrito) →</a>
+        </div>
+        <div class="btn-container">
+            <button onclick="reiniciarTracking()" class="btn btn-reset">🔄 Reiniciar Tracking</button>
+        </div>
+    </div>
+
+    <script>
+        function reiniciarTracking() {
+            // Enviar evento de finalización a Genesys
+            try {
+                Genesys("command", "Journey.record", {
+                    eventName: 'finalizarSesionTracking',
+                    customAttributes: {
+                        url: location.href,
+                        timestamp: new Date().toISOString(),
+                        action: 'reset'
+                    }
+                });
+                console.log('📊 Evento: finalizarSesionTracking enviado a Genesys');
+            } catch(e) {
+                console.error('Error enviando evento de finalización:', e);
+            }
+
+            // Limpiar variables globales del tracking
+            if (window.__apdMinicartInit) {
+                delete window.__apdMinicartInit;
+                console.log('✅ Variable __apdMinicartInit eliminada');
+            }
+
+            if (window.__apdBindMinicart) {
+                delete window.__apdBindMinicart;
+                console.log('✅ Función __apdBindMinicart eliminada');
+            }
+
+            // Limpiar localStorage si hay datos
+            try {
+                localStorage.removeItem('trackingData');
+                console.log('✅ Datos de tracking eliminados del localStorage');
+            } catch(e) {}
+
+            // Mostrar confirmación
+            alert('✅ Tracking reiniciado correctamente.\n\nPuedes comenzar una nueva prueba.');
+            
+            // Opcional: recargar la página para un reinicio completo
+            // location.reload();
+        }
+    </script>
+
+    <!-- Genesys Chat Widget -->
+    <script type="text/javascript" charset="utf-8">
+      (function (g, e, n, es, ys) {
+        g['_genesysJs'] = e;
+        g[e] = g[e] || function () {
+          (g[e].q = g[e].q || []).push(arguments)
+        };
+        g[e].t = 1 * new Date();
+        g[e].c = es;
+        ys = document.createElement('script'); ys.async = 1; ys.src = n; ys.charset = 'utf-8'; document.head.appendChild(ys);
+      })(window, 'Genesys', 'https://apps.mypurecloud.com/genesys-bootstrap/genesys.min.js', {
+        environment: 'prod',
+        deploymentId: '8a4367b7-a7a9-4f0e-b4f8-a79c899c9db8'
+      });
+    </script>
+</body>
+</html>
