@@ -124,9 +124,13 @@ Para que tu sitio sea accesible en línea:
 1. Ve a tu repositorio en GitHub
 2. Haz clic en **Settings** (Configuración)
 3. En el menú lateral, haz clic en **Pages**
-4. En **Source**, selecciona **main** branch
+4. En **"Build and deployment"**:
+   - **Source**: Selecciona **"Deploy from a branch"** (NO uses GitHub Actions)
+   - **Branch**: Selecciona **"main"** (o "master")
+   - **Folder**: Selecciona **"/ (root)"**
 5. Haz clic en **Save**
-6. Espera unos minutos y tu sitio estará en:
+6. Espera 1-2 minutos y recarga la página
+7. Verás un mensaje verde con tu URL:
    ```
    https://TU-USUARIO.github.io/TU-REPOSITORIO/
    ```
@@ -134,6 +138,11 @@ Para que tu sitio sea accesible en línea:
 ### ⚠️ IMPORTANTE para GitHub Pages:
 - **NO subas el Deployment ID real** si usas GitHub Pages con repositorio público
 - Considera usar un deployment ID de prueba/demo
+- **NO uses GitHub Actions** para desplegar - usa "Deploy from a branch"
+- Si el deployment se queda atascado, ve a [SOLUCION-GITHUB-PAGES.md](SOLUCION-GITHUB-PAGES.md)
+
+### 🚨 Si GitHub Pages se Queda Atascado:
+Lee la guía completa en [SOLUCION-GITHUB-PAGES.md](SOLUCION-GITHUB-PAGES.md)
 
 ## 🎯 Mejores Prácticas
 
